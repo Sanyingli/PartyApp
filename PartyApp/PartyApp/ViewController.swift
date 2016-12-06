@@ -15,8 +15,10 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //get a default party, let the main page not that empty
+        defaParty()
         
-        addParty()//addparty for test
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addParty))
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -31,7 +33,8 @@ class ViewController: UITableViewController {
         
         let party = parites[indexPath.row]
         
-        cell.textLabel?.text = party.address
+        cell.textLabel?.text = party.name
+        print("print call", party.address)
         
         return cell
     }
@@ -42,7 +45,30 @@ class ViewController: UITableViewController {
     }
 
     func addParty(){//test func
-        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Add") as? AddPartyViewController{
+            navigationController?.showDetailViewController(vc, sender: self)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "MapView") as? MapViewController {
+            //todo: func to add party info to map
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            //objects.remove(at: indexPath.row) remove objects
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    
+    func defaParty(){
+        let date = Date()
+        let temp = Party.init(id: "1", startDate: date , name: "testName", address: "testAddress")
+        parites.append(temp)
     }
 
 }
