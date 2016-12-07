@@ -33,7 +33,9 @@ class ViewController: UITableViewController {
         
         let party = parites[indexPath.row]
         
-        cell.textLabel?.text = party.name
+        let showinfo = party.name + party.address + party.startDate.description
+        
+        cell.textLabel?.text = showinfo
         print("print call", party.address)
         
         return cell
@@ -60,6 +62,7 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row) remove objects
+            parites.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -67,7 +70,9 @@ class ViewController: UITableViewController {
     
     func defaParty(){
         let date = Date()
-        let temp = Party.init(id: "1", startDate: date , name: "testName", address: "testAddress")
+        let id = UUID().uuidString
+        print(id)
+        let temp = Party.init(id: id, startDate: date , name: "testName", address: "testAddress")
         parites.append(temp)
     }
 
