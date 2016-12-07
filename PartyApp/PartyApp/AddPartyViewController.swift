@@ -10,6 +10,9 @@ import UIKit
 
 class AddPartyViewController: UIViewController {
 
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +23,16 @@ class AddPartyViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    @IBAction func saveButtonPress(_ sender: Any) {
+        print("save party")
+        //TODO: save party to  parties
+    }
     
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
     /*
     // MARK: - Navigation

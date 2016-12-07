@@ -16,6 +16,7 @@
 		2974BB341DF6370F00CD93CF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974BB331DF6370F00CD93CF /* MapViewController.swift */; };
 		2974BB361DF63A7500CD93CF /* AddPartyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974BB351DF63A7500CD93CF /* AddPartyViewController.swift */; };
 		2974BB391DF64D3A00CD93CF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2974BB381DF64D3A00CD93CF /* MapKit.framework */; };
+		2974BB3B1DF7902F00CD93CF /* PartyAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2974BB3A1DF7902F00CD93CF /* PartyAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2974BB331DF6370F00CD93CF /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2974BB351DF63A7500CD93CF /* AddPartyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartyViewController.swift; sourceTree = "<group>"; };
 		2974BB381DF64D3A00CD93CF /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		2974BB3A1DF7902F00CD93CF /* PartyAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartyAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				2974BB311DF5040C00CD93CF /* Party.swift */,
 				2974BB331DF6370F00CD93CF /* MapViewController.swift */,
 				2974BB351DF63A7500CD93CF /* AddPartyViewController.swift */,
+				2974BB3A1DF7902F00CD93CF /* PartyAnnotation.swift */,
 			);
 			path = PartyApp;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				2974BB361DF63A7500CD93CF /* AddPartyViewController.swift in Sources */,
 				2974BB221DF4FF7400CD93CF /* ViewController.swift in Sources */,
 				2974BB321DF5040C00CD93CF /* Party.swift in Sources */,
+				2974BB3B1DF7902F00CD93CF /* PartyAnnotation.swift in Sources */,
 				2974BB201DF4FF7400CD93CF /* AppDelegate.swift in Sources */,
 				2974BB341DF6370F00CD93CF /* MapViewController.swift in Sources */,
 			);
