@@ -33,8 +33,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        print("mapview run")
+        print("mapview_viewFor run")//for test if viewFor run or not
         
         let identifier = "Party"
         

@@ -28,6 +28,7 @@ class ViewController: UITableViewController {
         return parites.count
     }
     
+    //contents show in the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PartyInfo", for: indexPath)
         
@@ -46,12 +47,15 @@ class ViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func addParty(){//test func
+    //called when tap navigation right bar "+". then instantiate "add" view.
+    //"showDetailViewCOntroller" is the func to present modally
+    func addParty(){
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Add") as? AddPartyViewController{
             navigationController?.showDetailViewController(vc, sender: self)
         }
     }
     
+    //called when tap the party cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "MapView") as? MapViewController {
             //todo: func to add party info to map
@@ -59,6 +63,7 @@ class ViewController: UITableViewController {
         }
     }
     
+    //swap then show delect option
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row) remove objects
@@ -67,7 +72,7 @@ class ViewController: UITableViewController {
         }
     }
     
-    
+    //func to add sample party.
     func defaParty(){
         let date = Date()
         let id = UUID().uuidString
