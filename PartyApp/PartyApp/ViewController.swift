@@ -17,10 +17,10 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         
         //get a default party, let the main page not that empty
+        defaParty()
         
         parites = persistence.fetchParty()
         
-        defaParty()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addParty))
         // Do any additional setup after loading the view, typically from a nib.
@@ -60,7 +60,7 @@ class ViewController: UITableViewController {
     //called when tap the party cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "MapView") as? MapViewController {
-            //todo: func to add party info to map
+            persistence.saveIndex(rowNum: indexPath.row)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -80,9 +80,9 @@ class ViewController: UITableViewController {
         let date = Date()
         let id = UUID().uuidString
         print(id)
-        let temp = Party.init(id: id, startDate: date , name: "SampleName", address: "SampleAddress")
-        //persistence.saveParty(party: temp)
-        parites.append(temp)
+        let temp = Party.init(id: id, startDate: date , name: "SampleName", address: "1 Infinite Loop, CA, USA")
+        persistence.saveParty(party: temp)
+        //parites.append(temp)
     }
 
 }

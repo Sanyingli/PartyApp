@@ -43,6 +43,10 @@ class AddPartyViewController: UIViewController {
         
         persistence.saveParty(party: newParty)
         
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "Main") as? ViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {

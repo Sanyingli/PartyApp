@@ -10,6 +10,8 @@ import Foundation
 
 class  Persistence {
     let partykey = "parties"
+    let indexKey = "indexPath"
+    
     let userdef = UserDefaults.standard
     
     func saveParty(party: Party){
@@ -45,5 +47,16 @@ class  Persistence {
         let data = NSKeyedArchiver.archivedData(withRootObject: parties)
         userdef.set(data, forKey: partykey)
         userdef.synchronize()
+    }
+    
+    func saveIndex(rowNum: Int) {
+        let index = rowNum
+        userdef.set(index, forKey: indexKey)
+    }
+    
+    func fetchIndex() -> Int{
+        let index = userdef.object(forKey: indexKey) as! Int
+        
+        return index
     }
 }

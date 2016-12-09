@@ -9,22 +9,30 @@
 import UIKit
 import Social
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    var partyInfo: PartyAnnotation?
+    let persistence = Persistence()
+    
+    var cellIndexPath: Int = 0
+    var centerLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //share bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,target: self, action: #selector(shareTapped))
         
-
-        let washingtonLL = CLLocation(latitude: 38.895111, longitude: -77.036667)
-        centerMapOnLocation(location: washingtonLL)
         
-        let washington = PartyAnnotation(title: "PartyName", coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), address: "GWU")
-        mapView.addAnnotation(washington)
+        getPartyInfo()
+        //let washingtonLL = CLLocation(latitude: 38.895111, longitude: -77.036667)
+        //centerMapOnLocation(location: centerLocation!)
+        
+        //let washington = PartyAnnotation(title: "PartyName", coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), address: "GWU")
+        //mapView.addAnnotation(partyInfo!)
         // Do any additional setup after loading the view.
     }
 
@@ -80,7 +88,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func shareTapped()
     {
         if let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook){
-            vc.setInitialText("join this party!")
+            vc.setInitialText("join this party! Address: \(partyInfo!.address)")
             present(vc, animated: true)}
+    }
+    
+    func getPartyInfo(){
+        let index = persistence.fetchIndex()
+        let parties = persistence.fetchParty()
+        var coord: CLLocationCoordinate2D?
+        
+        let partyShow = parties[index]
+        let geo = CLGeocoder()
+        let location = partyShow.address
+        
+        geo.geocodeAddressString(location) {placemarks, error in
+            if let placemark = placemarks?.first, let location = placemark.location {
+                coord = location.coordinate
+                print(coord.debugDescription)
+                
+                self.partyInfo = PartyAnnotation.init(title: partyShow.name, coordinate: coord!, address: partyShow.address)
+                self.centerLocation = CLLocation(latitude: (coord?.latitude)!, longitude: (coord?.longitude)!)
+                self.centerMapOnLocation(location: self.centerLocation!)
+                self.mapView.addAnnotation(self.partyInfo!)
+            }
+        }
+ 
+
     }
 }
