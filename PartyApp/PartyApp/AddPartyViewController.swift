@@ -9,6 +9,11 @@
 import UIKit
 
 class AddPartyViewController: UIViewController {
+    let persistence = Persistence()
+    
+    @IBOutlet weak var nameText: UITextField!
+    @IBOutlet weak var addressText: UITextField!
+    @IBOutlet weak var datePicker: UIDatePicker!
 
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -26,9 +31,19 @@ class AddPartyViewController: UIViewController {
 
     @IBAction func saveButtonPress(_ sender: Any) {
         print("save party")
-        //TODO: save party to  parties
+        addParty()
     }
     
+    func addParty(){
+        let id = UUID().uuidString
+        let startDate = datePicker.date
+        let name = nameText.text
+        let address = addressText.text
+        let newParty = Party.init(id: id, startDate: startDate, name: name!, address: address!)
+        
+        persistence.saveParty(party: newParty)
+        
+    }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

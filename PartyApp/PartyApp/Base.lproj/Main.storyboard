@@ -150,7 +150,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addressText" destination="ewe-xw-Dig" id="IAG-Yn-vII"/>
                         <outlet property="cancelButton" destination="AtM-6g-d6X" id="wNd-1x-8u4"/>
+                        <outlet property="datePicker" destination="VmW-ya-AGi" id="0am-QM-Xqo"/>
+                        <outlet property="nameText" destination="fZd-9t-A2f" id="LsN-z4-2sD"/>
                         <outlet property="saveButton" destination="GFw-Cb-QQK" id="c6t-Hn-Nnj"/>
                     </connections>
                 </viewController>

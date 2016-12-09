@@ -11,11 +11,15 @@ import UIKit
 class ViewController: UITableViewController {
     
     var parites = [Party]()
+    let persistence = Persistence()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //get a default party, let the main page not that empty
+        
+        parites = persistence.fetchParty()
+        
         defaParty()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addParty))
@@ -34,11 +38,9 @@ class ViewController: UITableViewController {
         
         let party = parites[indexPath.row]
         
-        let showinfo = party.name + party.address + party.startDate.description
-        
+        let showinfo = party.name + " - " + party.startDate.description
         cell.textLabel?.text = showinfo
         print("print call", party.address)
-        
         return cell
     }
 
@@ -68,6 +70,7 @@ class ViewController: UITableViewController {
         if editingStyle == .delete {
             //objects.remove(at: indexPath.row) remove objects
             parites.remove(at: indexPath.row)
+            persistence.deletParty(indexPath: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -77,7 +80,8 @@ class ViewController: UITableViewController {
         let date = Date()
         let id = UUID().uuidString
         print(id)
-        let temp = Party.init(id: id, startDate: date , name: "testName", address: "testAddress")
+        let temp = Party.init(id: id, startDate: date , name: "SampleName", address: "SampleAddress")
+        //persistence.saveParty(party: temp)
         parites.append(temp)
     }
 
