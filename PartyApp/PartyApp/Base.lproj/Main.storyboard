@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="1639" y="-666"/>
         </scene>
-        <!--View Controller-->
+        <!--Parties Table View Controller-->
         <scene sceneID="KWk-4J-g7E">
             <objects>
-                <tableViewController storyboardIdentifier="Main" id="N1E-77-AUO" customClass="ViewController" customModule="PartyApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Main" id="N1E-77-AUO" customClass="PartiesTableViewController" customModule="PartyApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="BOF-Z7-ycx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

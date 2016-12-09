@@ -10,7 +10,7 @@ import UIKit
 
 class AddPartyViewController: UIViewController {
     let persistence = Persistence()
-    let mainview = ViewController()
+    let mainview = PartiesTableViewController()
     
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var addressText: UITextField!
@@ -22,7 +22,6 @@ class AddPartyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,14 +30,17 @@ class AddPartyViewController: UIViewController {
     }
     
 
+    //called when save button being pressed. run addParty()
     @IBAction func saveButtonPress(_ sender: Any) {
-        print("save party")
+        print("save party button pressed")
         addParty()
     }
     
     func addParty(){
-        let id = UUID().uuidString
+        let id = UUID().uuidString //give random id to the party
         let startDate = datePicker.date
+        
+        //use guard check if name and address is blank. Call blankError if it is blank.
         guard let name = nameText.text, name.characters.count > 0 else {
             blankError(name: "Party Name")
             return
@@ -49,26 +51,19 @@ class AddPartyViewController: UIViewController {
         }
         let newParty = Party.init(id: id, startDate: startDate, name: name, address: address)
         
+        //save the party into userDefault
         persistence.saveParty(party: newParty)
         
         self.dismiss(animated: true, completion: nil)
         
     }
     
+    //press cancle button just dismiss this view
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
+    //show error messages, being called if name or address is blank
     func blankError(name: String){
         let ac = UIAlertController(title: "Error", message: "\(name) is empty", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
