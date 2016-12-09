@@ -12,20 +12,27 @@ class ViewController: UITableViewController {
     
     var parites = [Party]()
     let persistence = Persistence()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //get a default party, let the main page not that empty
+        //check if its the first time open app, if true, add sample party
+        if(persistence.fetchOpenTime()){
         defaParty()
+        }
         
         parites = persistence.fetchParty()
         
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addParty))
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.parites = self.persistence.fetchParty()
+            self.tableView.reloadData()
+            print("viewWillAppear reload call")
+        }
+    }
     
     // number of rows, using the number of parites
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,9 +45,12 @@ class ViewController: UITableViewController {
         
         let party = parites[indexPath.row]
         
-        let showinfo = party.name + " - " + party.startDate.description
+        let date = dateFormating(data: party.startDate)
+        
+        let showinfo = party.name + " - " + date
         cell.textLabel?.text = showinfo
-        print("print call", party.address)
+        print(party.startDate.debugDescription)
+        
         return cell
     }
 
@@ -80,9 +90,20 @@ class ViewController: UITableViewController {
         let date = Date()
         let id = UUID().uuidString
         print(id)
+        print("add default party run")
         let temp = Party.init(id: id, startDate: date , name: "SampleName", address: "1 Infinite Loop, CA, USA")
         persistence.saveParty(party: temp)
+        persistence.saveOpenTime()
         //parites.append(temp)
+    }
+    
+    func dateFormating(data: Date) -> String{
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "hh:mm a MM/dd"
+        let returnDate = dateFormatter.string(from: data)
+        
+        return returnDate
     }
 
 }

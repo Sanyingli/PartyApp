@@ -26,14 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         //share bar
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,target: self, action: #selector(shareTapped))
         
-        
         getPartyInfo()
-        //let washingtonLL = CLLocation(latitude: 38.895111, longitude: -77.036667)
-        //centerMapOnLocation(location: centerLocation!)
-        
-        //let washington = PartyAnnotation(title: "PartyName", coordinate: CLLocationCoordinate2D(latitude: 38.895111, longitude: -77.036667), address: "GWU")
-        //mapView.addAnnotation(partyInfo!)
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,7 +81,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func shareTapped()
     {
         if let vc = SLComposeViewController(forServiceType: SLServiceTypeFacebook){
-            vc.setInitialText("join this party! Address: \(partyInfo!.address)")
+            vc.setInitialText("join this party! Address: \(partyInfo?.address)")
             present(vc, animated: true)}
     }
     
@@ -110,6 +103,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 self.centerLocation = CLLocation(latitude: (coord?.latitude)!, longitude: (coord?.longitude)!)
                 self.centerMapOnLocation(location: self.centerLocation!)
                 self.mapView.addAnnotation(self.partyInfo!)
+            }
+            if (error != nil) {
+                let ac = UIAlertController(title: "Error Party Address", message: "Cannot find this address, please check the address", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(ac, animated: true)
             }
         }
  

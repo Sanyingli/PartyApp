@@ -10,6 +10,7 @@ import UIKit
 
 class AddPartyViewController: UIViewController {
     let persistence = Persistence()
+    let mainview = ViewController()
     
     @IBOutlet weak var nameText: UITextField!
     @IBOutlet weak var addressText: UITextField!
@@ -28,6 +29,7 @@ class AddPartyViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     @IBAction func saveButtonPress(_ sender: Any) {
         print("save party")
@@ -37,15 +39,19 @@ class AddPartyViewController: UIViewController {
     func addParty(){
         let id = UUID().uuidString
         let startDate = datePicker.date
-        let name = nameText.text
-        let address = addressText.text
-        let newParty = Party.init(id: id, startDate: startDate, name: name!, address: address!)
+        guard let name = nameText.text, name.characters.count > 0 else {
+            blankError(name: "Party Name")
+            return
+        }
+        guard let address = addressText.text, address.characters.count > 0 else {
+            blankError(name: "Address")
+            return
+        }
+        let newParty = Party.init(id: id, startDate: startDate, name: name, address: address)
         
         persistence.saveParty(party: newParty)
         
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "Main") as? ViewController {
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        self.dismiss(animated: true, completion: nil)
         
     }
     
@@ -62,5 +68,12 @@ class AddPartyViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func blankError(name: String){
+        let ac = UIAlertController(title: "Error", message: "\(name) is empty", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+    
 
 }

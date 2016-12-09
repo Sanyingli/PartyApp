@@ -11,6 +11,8 @@ import Foundation
 class  Persistence {
     let partykey = "parties"
     let indexKey = "indexPath"
+    let timeOpenKey = "openKey"
+    
     
     let userdef = UserDefaults.standard
     
@@ -58,5 +60,20 @@ class  Persistence {
         let index = userdef.object(forKey: indexKey) as! Int
         
         return index
+    }
+    
+    func saveOpenTime(){
+        let openTime = false
+        userdef.set(openTime, forKey: timeOpenKey)
+    }
+    
+    func fetchOpenTime() -> Bool{
+        var openTime = userdef.object(forKey: timeOpenKey) as? Bool
+        if(openTime == nil)
+        {
+            print("Its first time open app")
+            openTime = true
+        }
+        return openTime!
     }
 }
